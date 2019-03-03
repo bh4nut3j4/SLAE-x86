@@ -28,7 +28,7 @@ mov bl, 0x1  	; socket syscall function SOCKET is 1 | #define SYS_SOCKET 1
 ;
 
 push ecx     	; ecx value is zero and is pushed onto the stack as value for IP_PORTO_IP
-push ebx	     	; ebx value is 1 and is pushed onto stack as value for SOCK_STREAM
+push ebx     	; ebx value is 1 and is pushed onto stack as value for SOCK_STREAM
 push 0x2     	; AF_INET value is 2 and is pushed on to the stack
 mov ecx, esp 	; esp is pushed into ecx and now points to arguments
 int 0x80     	; execute
