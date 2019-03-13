@@ -2,7 +2,7 @@
 ;Author:	Bhanu Teja
 ;
 ;Compilation 	# nasm -f elf32 rot13_XOR_decoder.nasm 
-
+;		# ld rot13_XOR_decoder.o -o rot13_XOR_decoder -fno-stack-protector -shared -z execstack
 ;---start---;
 
 global _start
