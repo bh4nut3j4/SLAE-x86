@@ -8,3 +8,5 @@ int main(){
 	int (*ret)() = (int(*)())code;
 	ret();
 }
+
+//Compilation : gcc shellcode.c -o shellcode -fno-stack-protector -z execstack
